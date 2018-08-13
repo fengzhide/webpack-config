@@ -1,7 +1,8 @@
 import test from './test';
+import './index.global.scss';
 const appDom = document.getElementById('app');
 
-appDom.append('tesst1ssss1');
+appDom.append('test');
 
 test();
 

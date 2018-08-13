@@ -5,6 +5,7 @@ const paths = require('./paths');
 
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const prodConfig = {
     mode: 'production',
     output: {
@@ -42,6 +43,10 @@ const prodConfig = {
                 dry: false,             // 启用删除文件
             }
         ),
+        new ExtractTextPlugin({
+            filename: 'static/css/[name].[md5:contenthash:hex:20].css',
+            allChunks: true
+        }),
     ]
 }
 

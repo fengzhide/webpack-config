@@ -5,6 +5,8 @@
 const paths = require('./paths');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackHtml = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 /*
  * webpack可以把以指定入口的一系列相互依赖的模块打包成一个文件
  * 这里的模块指的不只是js，也可以是css。
@@ -17,13 +19,14 @@ const HtmlWebpackHtml = require('html-webpack-plugin');
 // modules是否是全局
 const styleConfig = (modules = true) => {
     return [
-        {
-            // style-loader 将解析后的样式嵌入js代码 
-            loader: require('style-loader')
-        },
+        // {
+        //     // style-loader 将解析后的样式嵌入js代码
+        //     // 使用ExtractTextPlugin，则不需要使用该loader
+        //     loader: require('style-loader')
+        // },
         {
             // css-loader 解析这个文件,能够使用类似@import和url（...）的方法实现require的功能
-            loader: require('css-loader'),
+            loader: 'css-loader',
             options: {
                 modules,
                 localIdentName: '[name]__[local]-[hash:base64:5]'
@@ -31,7 +34,7 @@ const styleConfig = (modules = true) => {
         },
         {
             // PostCSS 本身是一个功能比较单一的工具。它提供了一种方式用 JavaScript 代码来处理 CSS。它负责把 CSS 代码解析成抽象语法树结构（Abstract Syntax Tree，AST），再交由插件来进行处理。
-            loader: require.resolve('postcss-loader'),
+            loader: 'postcss-loader',
             options: {
                 ident: 'postcss',
                 plugins: () => [
@@ -78,8 +81,24 @@ module.exports = {
                 }
             },
             {
-                test: /\.(scss|css)$/,
-                // loader: styleConfig(true)
+                oneOf: [
+                    {
+                        test: /\.global.(scss|css)$/,
+                        loader: ExtractTextPlugin.extract({
+                            fallback: 'style-loader',
+                            // 不使用css modules
+                            use: styleConfig(false)
+                        })
+                    },
+                    {
+                        test: /\.(scss|css)$/,
+                        loader: ExtractTextPlugin.extract({
+                            fallback: 'style-loader',
+                            // 使用css modules
+                            use: styleConfig(true)
+                        })
+                    }
+                ]
             }
         ]
     },
