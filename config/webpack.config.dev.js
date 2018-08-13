@@ -10,7 +10,11 @@ const devConfig = {
     mode: 'development',
 
     entry: {
-        main: [`webpack-dev-server/client?http://localhost:${config.port}`, require.resolve('webpack/hot/dev-server'), paths.appJs]
+        main: [
+            `webpack-dev-server/client?http://localhost:${config.port}`,
+            require.resolve('webpack/hot/dev-server'),
+            paths.appJs,
+        ]
     },
     output: {
         publicPath: '',
