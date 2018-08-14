@@ -1,0 +1,12 @@
+{
+    "presets": [
+        [
+            "env", {
+                "modules": false,
+                "ugilfy": true,
+                "include": ["transform-es2015-arrow-functions"],
+            }
+        ]
+    ],
+    "plugins": ["syntax-dynamic-import"]
+}   

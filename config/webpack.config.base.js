@@ -65,8 +65,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$ /,
-                include: [paths.appSrc],
+                test: /\.(js|jsx)$/,
+                // include: [paths.appSrc],
                 loader: require.resolve('babel-loader')
             },
             {

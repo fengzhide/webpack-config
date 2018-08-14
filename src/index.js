@@ -1,3 +1,4 @@
+// import 'babel-polyfill';
 import test from './test';
 import './index.global.scss';
 const appDom = document.getElementById('app');
@@ -5,6 +6,10 @@ const appDom = document.getElementById('app');
 appDom.append('test');
 test();
 
+const { a, b } = {
+    a: 1,
+    b: 2
+};
 // 异步加载
 appDom.addEventListener('click', () => {
     import(/* webpackChunkName: "asyncLoad"*/ './aysncLoad').then(async => {
