@@ -6,8 +6,13 @@ const paths = require('./paths');
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var Visualizer = require('webpack-visualizer-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const prodConfig = {
     mode: 'production',
+    entry: {
+        index: paths.appJs
+    },
     output: {
         path: paths.buildPath,
         filename: 'static/js/[name].[chunkhash:8].js',
@@ -29,7 +34,30 @@ const prodConfig = {
                     },
                 }
             })
-        ]
+        ],
+        // https://juejin.im/post/5af15e895188256715479a9a
+        splitChunks: {
+            chunks: 'all',
+            minSize: 30000,
+            minChunks: 2,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            // cacheGroups: {
+            //     default: {
+            //         minChunks: 2,
+            //         priority: -20,
+            //         reuseExistingChunk: true,
+            //     },
+            //     vendors: {
+            //         test: /[\\/]node_modules[\\/]/,
+            //         priority: -10
+            //     }
+            // }
+        },
+        // runtimeChunk: {
+        //     name: 'manifest'
+        // }
     },
     plugins: [
         /* 每次编译生产环境代码时先将之前的文件删除掉 */
@@ -47,6 +75,11 @@ const prodConfig = {
             filename: 'static/css/[name].[md5:contenthash:hex:20].css',
             allChunks: true
         }),
+        new Visualizer(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: 'report.html'
+        })
     ]
 }
 

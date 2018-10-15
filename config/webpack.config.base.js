@@ -7,6 +7,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackHtml = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 /*
  * webpack可以把以指定入口的一系列相互依赖的模块打包成一个文件
  * 这里的模块指的不只是js，也可以是css。
@@ -55,7 +56,7 @@ const styleConfig = (modules = true) => {
 }
 module.exports = {
     entry: {
-        main: paths.appJs
+        index: paths.appJs
     },
     output: {
         path: paths.buildPath,
@@ -81,25 +82,36 @@ module.exports = {
                 }
             },
             {
-                oneOf: [
-                    {
-                        test: /\.global.(scss|css)$/,
-                        loader: ExtractTextPlugin.extract({
-                            fallback: 'style-loader',
-                            // 不使用css modules
-                            use: styleConfig(false)
-                        })
-                    },
-                    {
-                        test: /\.(scss|css)$/,
-                        loader: ExtractTextPlugin.extract({
-                            fallback: 'style-loader',
-                            // 使用css modules
-                            use: styleConfig(true)
-                        })
-                    }
-                ]
+                test: /\.tpl$/,
+                loader: 'art-template-loader' // https://github.com/aui/art-template
+            },
+            {
+                test: /\.(scss|css)$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: styleConfig(false)
+                })
             }
+            // {
+            //     oneOf: [
+            //         {
+            //             test: /\.global.(scss|css)$/,
+            //             loader: ExtractTextPlugin.extract({
+            //                 fallback: 'style-loader',
+            //                 // 不使用css modules
+            //                 use: styleConfig(false)
+            //             })
+            //         },
+            //         {
+            //             test: /\.(scss|css)$/,
+            //             loader: ExtractTextPlugin.extract({
+            //                 fallback: 'style-loader',
+            //                 // 使用css modules
+            //                 use: styleConfig(true)
+            //             })
+            //         }
+            //     ]
+            // }
         ]
     },
     plugins: [
@@ -107,6 +119,9 @@ module.exports = {
         new HtmlWebpackHtml({
             title: 'test',
             template: paths.appHtml
+        }),
+        new webpack.ProvidePlugin({
+            $: 'zepto-webpack'
         })
     ]
 }

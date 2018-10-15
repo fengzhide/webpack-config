@@ -10,7 +10,7 @@ const devConfig = {
     mode: 'development',
 
     entry: {
-        main: [
+        index: [
             `webpack-dev-server/client?http://localhost:${config.port}`,
             require.resolve('webpack/hot/dev-server'),
             paths.appJs,
