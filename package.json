@@ -16,8 +16,9 @@
     "@babel/preset-env": "^7.0.0-rc.1",
     "art-template": "^4.12.2",
     "autoprefixer": "^9.1.1",
-    "babel-loader": "^8.0.0-beta.4",
+    "babel-loader": "^8.0.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-polyfill": "^6.26.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chalk": "^2.4.1",
     "child_process": "^1.0.2",
@@ -40,7 +41,10 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0",
     "art-template-loader": "^1.4.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "zepto-webpack": "^1.2.1"
   }
 }

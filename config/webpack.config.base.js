@@ -68,13 +68,13 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 // include: [paths.appSrc],
-                loader: require.resolve('babel-loader')
+                loader: 'babel-loader'
             },
             {
                 // url-loader: 用于指定当文件的小于设置的限制时，可以返回一个DataUrl(base64)
                 // file-loader: 生成文件到指定的输出目录，并返回public URL
                 test: /\.(bmp|gif|jpe?g|png)$/,
-                loader: require.resolve('url-loader'),
+                loader: 'url-loader',
                 options: {
                     limit: 8192,
                     fallback: 'file-loder',
