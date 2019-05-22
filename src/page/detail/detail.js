@@ -1,16 +1,6 @@
-import tpl from './detail.tpl';
-import Base from '../base';
-class DetailPage extends Base {
-    constructor() {
-        super();
-    }
-    render() {
-        const containerDom = this.containerDom;
-        const detailHtml = tpl({
-            text: 'detailPage'
-        });
-        containerDom.innerHTML = detailHtml;
-    }
-}
+import React from 'react';
+import LoadableApp from '../../App/LoadableApp';
 
-export default DetailPage;
+export default function () {
+    return <LoadableApp />;
+}

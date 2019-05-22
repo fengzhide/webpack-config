@@ -13,6 +13,7 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-rc.1",
     "@babel/core": "^7.0.0-rc.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.0.0-rc.1",
     "art-template": "^4.12.2",
     "autoprefixer": "^9.1.1",
@@ -40,11 +41,17 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/polyfill": "^7.0.0-rc.1",
     "@babel/preset-react": "^7.0.0",
+    "@loadable/component": "^5.10.1",
     "art-template-loader": "^1.4.3",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.11",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "zepto-webpack": "^1.2.1"
   }
 }

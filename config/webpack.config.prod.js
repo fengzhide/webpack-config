@@ -11,7 +11,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const prodConfig = {
     mode: 'production',
     entry: {
-        index: paths.appJs
+        index: paths.appJs,
+        // indexA: paths.appJsA
     },
     output: {
         path: paths.buildPath,
@@ -35,14 +36,29 @@ const prodConfig = {
                 }
             })
         ],
+        // runtimeChunk: "single",
         // https://juejin.im/post/5af15e895188256715479a9a
         splitChunks: {
-            chunks: 'all',
-            minSize: 30000,
-            minChunks: 2,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            name: true,
+            chunks: 'initial',
+            cacheGroups: {
+                lib: {
+                    // chunks: 'all',
+                    test: /react/,
+                    name: 'lib',
+                    // minChunks: 2
+                  }, 
+                  jQuery: {
+                    // chunks: 'all',
+                    test: /jquery/,
+                    name: 'lib',
+                    // minChunks: 2
+                  }
+            },
+            // minSize: 30000,
+            // minChunks: 2,
+            // maxAsyncRequests: 5,
+            // maxInitialRequests: 3,
+            // name: true,
             // cacheGroups: {
             //     default: {
             //         minChunks: 2,
