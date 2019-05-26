@@ -1,26 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import store from './store';
+import {Provider} from './components/react-redux';
+import  ThemeSwitch from './components/ThemeSwitch';
 
-import Detail from './page/Detail/Detail';
-import Main from './page/Main/Main';
-import AsyncPage from './page/AsyncPage';
-import {HashRouter, Route, Redirect} from 'react-router-dom';
-import _ from 'lodash'
-import $ from 'jquery'
-// import './index.global.scss';
-// import('jquery').then(component => {
-//     console.log(component);
-// });
-const Center = () => {
+import Mock from './util/mock';
+const App = () => {
     return (
-        <React.Fragment>
-            <HashRouter>
-                <Route path="/detail" component={Detail}/>
-                <Route path="/async" component={AsyncPage}/>
-                <Route path="/main" component={Main}/>
-                {/* <Route path="/" render={() => (<Redirect to='/main' />)}></Route> */}
-            </HashRouter>
-        </React.Fragment>
-    );
-};
-ReactDOM.render(<Center />, document.getElementById('app'));
+        <Provider store={store}>
+            <ThemeSwitch/>
+        </Provider>
+    )
+}
+ReactDOM.render(<App />, document.getElementById('app'));
+
+const mock = new Mock();
+
+mock.use((param, next) => {
+    console.log('m1 start');
+    next();
+    console.log('m1 end');
+});
+
+mock.use((param, next) => {
+    console.log('m2 start');
+    next();
+    console.log('m2 end');
+});
+
+mock.compose();
