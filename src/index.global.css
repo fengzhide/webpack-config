@@ -1,0 +1,11 @@
+#app {
+    margin-top: 100px;
+    font-size: 50px;
+    text-align: center;
+}
+
+button {
+    font-size: 30px;
+    margin: 20px 20px 0 20px;
+    /* margin-right: 20px; */
+}
